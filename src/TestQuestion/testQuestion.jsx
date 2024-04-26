@@ -34,17 +34,37 @@ const Game = ({question , OnClickVariants})=>{
     )
 }
 
+const Result = ({correct})=>{
+    return(
+        <>
+            <div className="game-container">
+                <h2>siz {correct}/{questions.length} tapdiz</h2>
+                <h3>
+                    <a href={'/'}>Yeniden Basla</a></h3>
+            </div>
+        </>
+    )
+}
+
 
 function TestQuestion() {
     const [step , setStep] = useState(0)
+    const [correct , setCorrect] = useState(0)
     const question = questions[step]
     const OnClickVariants = (index)=>{
         console.log(step , index);
         setStep(step + 1)
+
+        if(index === question.correct){
+            setCorrect(correct + 1)
+        }
     }
   return (
     <>  
-     <Game question={question} OnClickVariants={OnClickVariants} />
+    {
+        step !== questions.length ?  <Game question={question} OnClickVariants={OnClickVariants} /> : <Result correct={correct} />
+    }
+    
     </>
   )
 }
